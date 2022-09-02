@@ -1,5 +1,6 @@
 package com.markswell.processadorReceita.writer;
 
+import com.markswell.processadorReceita.LineException;
 import org.springframework.batch.item.ItemWriter;
 import com.markswell.processadorReceita.model.dto.ReceitaDTO;
 
@@ -20,6 +21,10 @@ public class ReceitaWriter implements ItemWriter<ReceitaDTO> {
         if(!file.exists()) {
             createFile(file);
         }
+        writeReceitaOutput(list, file);
+    }
+
+    private void writeReceitaOutput(List<? extends ReceitaDTO> list, File file) {
         try (FileWriter fw = new FileWriter(file, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)){
@@ -27,9 +32,8 @@ public class ReceitaWriter implements ItemWriter<ReceitaDTO> {
             list.forEach(line -> out.println(line.toString()));
 
         }  catch (IOException e) {
-            e.printStackTrace();
+            throw new LineException(e.getMessage());
         }
-        list.forEach(e -> System.out.println(e.toString()));
     }
 
     private void createFile(File file) throws IOException {

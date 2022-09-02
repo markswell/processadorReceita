@@ -1,10 +1,10 @@
 package com.markswell.processadorReceita.mapper;
 
+import org.springframework.validation.BindException;
 import com.markswell.processadorReceita.LineException;
 import com.markswell.processadorReceita.model.Receita;
-import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
-import org.springframework.validation.BindException;
+import org.springframework.batch.item.file.mapping.FieldSetMapper;
 
 import static java.lang.Double.parseDouble;
 
@@ -20,7 +20,7 @@ public class ReceitaFieldSetMapper implements FieldSetMapper<Receita> {
                     .status(fieldSet.readString(3))
                     .build();
         } catch (Exception e) {
-            throw new LineException("Exception on binding");
+            throw new LineException(e.getMessage());
         }
     }
 

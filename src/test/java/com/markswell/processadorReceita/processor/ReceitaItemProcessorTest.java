@@ -1,20 +1,19 @@
 package com.markswell.processadorReceita.processor;
 
+import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import sincronizacaoreceita.ReceitaService;
+import org.junit.jupiter.api.extension.ExtendWith;
 import com.markswell.processadorReceita.model.Receita;
 import com.markswell.processadorReceita.model.dto.ReceitaDTO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import sincronizacaoreceita.ReceitaService;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(SpringExtension.class)
 class ReceitaItemProcessorTest {
@@ -37,7 +36,7 @@ class ReceitaItemProcessorTest {
         assertEquals(receita.getAgencia(), receitaDTO.getAgencia());
         assertEquals(receita.getConta(), receitaDTO.getConta());
         assertEquals(receita.getStatus(), receitaDTO.getStatus());
-        assertEquals(true, receitaDTO.getResultado());
+        assertEquals("processado", receitaDTO.getResultado());
     }
 
 }

@@ -9,10 +9,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 
 public class ReceitaFlatFileItemReader extends FlatFileItemReader<Receita> {
 
-    private String path;
-
     public ReceitaFlatFileItemReader(String path) {
-        this.path = path;
         DefaultLineMapper<Receita> defaultLineMapper = new DefaultLineMapper<>();
         defaultLineMapper.setLineTokenizer(new DelimitedLineTokenizer(";"));
         defaultLineMapper.setFieldSetMapper(new ReceitaFieldSetMapper());
@@ -20,7 +17,4 @@ public class ReceitaFlatFileItemReader extends FlatFileItemReader<Receita> {
         this.setResource(new FileSystemResource(path));
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

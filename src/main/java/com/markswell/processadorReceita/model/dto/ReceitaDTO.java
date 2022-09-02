@@ -16,7 +16,7 @@ public class ReceitaDTO {
                 .conta(receita.getConta())
                 .saldo(receita.getSaldo())
                 .status(receita.getStatus())
-                .resultado(resultado)
+                .resultado(resultado ? "processado": "falha")
                 .build();
     }
 
@@ -24,7 +24,7 @@ public class ReceitaDTO {
     private String conta;
     private Double saldo;
     private String status;
-    private Boolean resultado;
+    private String resultado;
 
     @Override
     public boolean equals(Object o) {
@@ -36,7 +36,8 @@ public class ReceitaDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(agencia, conta);
+        int result = agencia.hashCode();
+        return 31 * result + conta.hashCode();
     }
 
     @Override
