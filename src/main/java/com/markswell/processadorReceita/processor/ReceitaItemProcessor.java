@@ -15,8 +15,12 @@ public class ReceitaItemProcessor implements ItemProcessor<Receita, ReceitaDTO> 
 
     @Override
     public ReceitaDTO process(Receita receita) throws Exception {
-        boolean atualizarConta = receitaService.atualizarConta(receita.getAgencia(), receita.getConta().replace("-", ""), receita.getSaldo(), receita.getStatus());
-        return ReceitaDTO.of(receita, atualizarConta);
+        try {
+            boolean atualizarConta = receitaService.atualizarConta(receita.getAgencia(), receita.getConta().replace("-", ""), receita.getSaldo(), receita.getStatus());
+            return ReceitaDTO.of(receita, atualizarConta);
+        } catch (Exception e) {
+            return ReceitaDTO.of(receita, false);
+        }
 
     }
 }

@@ -22,6 +22,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ProcessadorReceitaApplication {
 
+	private static String path;
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 
@@ -29,26 +30,39 @@ public class ProcessadorReceitaApplication {
 	private StepBuilderFactory stepBuilderFactory;
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(ProcessadorReceitaApplication.class, args);
-
+		path = args[0];
+		SpringApplication.run(ProcessadorReceitaApplication.class, args);
 	}
 
 	@Bean("receitaStep")
-	public Step buildAircraftStep(ReceitaFlatFileItemReader aircraftItemReader, ReceitaItemProcessor aircraftItemProcessor, ReceitaWriter aircraftItemWriter) {
-		return stepBuilderFactory.get("aircraftStep")
-				.<Receita, ReceitaDTO>chunk(4)
-				.reader(aircraftItemReader)
-				.processor(aircraftItemProcessor)
-				.writer(aircraftItemWriter)
+	public Step buildReceitaStep(ReceitaFlatFileItemReader receitaItemReader, ReceitaItemProcessor receitaItemProcessor, ReceitaWriter receitaItemWriter) {
+		return stepBuilderFactory.get("receitaStep")
+				.<Receita, ReceitaDTO>chunk(1000)
+				.reader(receitaItemReader)
+				.processor(receitaItemProcessor)
+				.writer(receitaItemWriter)
 				.build();
 	}
 
 	@Bean("receitaJob")
-	public Job buildAircraftJob(final Step receitaStep) {
-		return jobBuilderFactory.get("aircraftLoadingJob")
+	public Job buildReceitaJob(final Step receitaStep) {
+		return jobBuilderFactory.get("receitaJob")
 				.incrementer(new RunIdIncrementer())
 				.flow(receitaStep)
 				.end()
 				.build();
 	}
+
+	@Bean
+	public ReceitaFlatFileItemReader receitaFlatFileItemReader() {
+		ReceitaFlatFileItemReader receitaFlatFileItemReader = new ReceitaFlatFileItemReader(path);
+		receitaFlatFileItemReader.setLinesToSkip(1);
+		return receitaFlatFileItemReader;
+	}
+
+	@Bean
+	public ReceitaWriter receitaWriter() {
+		return new ReceitaWriter(path);
+	}
+
 }

@@ -4,6 +4,7 @@ import com.markswell.processadorReceita.model.Receita;
 import lombok.Builder;
 import lombok.Data;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 @Data
@@ -41,12 +42,7 @@ public class ReceitaDTO {
 
     @Override
     public String toString() {
-        return "ReceitaDTO{" +
-                "agencia='" + agencia + '\'' +
-                ", conta='" + conta + '\'' +
-                ", saldo=" + saldo +
-                ", status='" + status + '\'' +
-                ", resultado=" + resultado +
-                '}';
+        return String.format("%s;%s;%.2f;%s;%s", agencia, conta, saldo, status, resultado);
     }
+
 }
