@@ -1,10 +1,9 @@
 package com.markswell.processadorReceita.model.dto;
 
-import com.markswell.processadorReceita.model.Receita;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
+import com.markswell.processadorReceita.model.Receita;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 @Data

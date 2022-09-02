@@ -1,17 +1,15 @@
 package com.markswell.processadorReceita.processor;
 
-import lombok.RequiredArgsConstructor;
 import sincronizacaoreceita.ReceitaService;
-import org.springframework.stereotype.Component;
 import org.springframework.batch.item.ItemProcessor;
 import com.markswell.processadorReceita.model.Receita;
 import com.markswell.processadorReceita.model.dto.ReceitaDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Component
-@RequiredArgsConstructor
 public class ReceitaItemProcessor implements ItemProcessor<Receita, ReceitaDTO> {
 
-    private final ReceitaService receitaService;
+    @Autowired
+    private ReceitaService receitaService;
 
     @Override
     public ReceitaDTO process(Receita receita) throws Exception {
