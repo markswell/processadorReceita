@@ -1,6 +1,6 @@
 package com.markswell.processadorReceita.writer;
 
-import com.markswell.processadorReceita.LineException;
+import com.markswell.processadorReceita.exception.LineException;
 import org.springframework.batch.item.ItemWriter;
 import com.markswell.processadorReceita.model.dto.ReceitaDTO;
 

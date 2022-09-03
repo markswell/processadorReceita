@@ -1,4 +1,4 @@
-package com.markswell.processadorReceita;
+package com.markswell.processadorReceita.exception;
 
 public class LineException extends RuntimeException {
 

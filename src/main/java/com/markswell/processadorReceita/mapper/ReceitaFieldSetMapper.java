@@ -1,7 +1,7 @@
 package com.markswell.processadorReceita.mapper;
 
 import org.springframework.validation.BindException;
-import com.markswell.processadorReceita.LineException;
+import com.markswell.processadorReceita.exception.LineException;
 import com.markswell.processadorReceita.model.Receita;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
